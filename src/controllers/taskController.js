@@ -11,8 +11,8 @@ const createTask = async (req, res) => {
 
 const getTasks = async (req, res) => {
     try {
-        const task = await Task.findAll();
-        res.status(200).json(task);
+        const tasks = await Task.findAll();
+        res.status(200).json(tasks);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao buscar tarefas', error });
     }
@@ -20,7 +20,7 @@ const getTasks = async (req, res) => {
 
 const getTask = async (req, res) => {
     try {
-        const task = await task.findByPk(req.params.id);
+        const task = await Task.findByPk(req.params.id);
         if (task) {
             res.status(200).json(task);
         } else {
@@ -33,7 +33,7 @@ const getTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
     try {
-        const task = await task.findByPk(req.params.id);
+        const task = await Task.findByPk(req.params.id);
         if (task) {
             await task.update(req.body);
             res.status(200).json(task);
@@ -59,4 +59,10 @@ const deleteTask = async (req, res) => {
     }
 };
 
-
+module.exports = {
+    createTask,
+    getTasks,
+    getTask,
+    updateTask,
+    deleteTask
+};
