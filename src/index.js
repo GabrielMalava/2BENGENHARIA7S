@@ -1,34 +1,38 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const sequelize = require('./config/database');
-const taskRoutes = require('./routes/taskRoutes');
+const express = require("express");
+const bodyParser = require("body-parser");
+const sequelize = require("./config/database");
+const taskRoutes = require("./routes/taskRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/api', taskRoutes);
+app.use("/api", taskRoutes);
+app.use("/api/auth", userRoutes);
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Conexão com o banco de dados SQLite realizada com sucesso!');
-        app.listen(3000, () => {
-            console.log('Servidor rodando na porta 3000');
-        });
-    })
-    .catch((err) => {
-        console.error('Erro ao conectar com o banco de dados:', err);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    message: "Ocorreu um erro no servidor",
+    error: process.env.NODE_ENV === "development" ? err.message : {},
+  });
+});
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Conexão com o banco de dados SQLite realizada com sucesso!");
+
+    return sequelize.sync({ force: false });
+  })
+  .then(() => {
+    console.log("Tabelas sincronizadas!");
+
+    app.listen(3000, () => {
+      console.log("Servidor rodando na porta 3000");
     });
-
-
-
-sequelize.sync({ force: true }) 
-    .then(() => {
-        console.log('Tabelas sincronizadas!');
-        app.listen(3000, () => {
-            console.log('Servidor rodando na porta 3000');
-        });
-    })
-    .catch((err) => {
-        console.error('Erro ao sincronizar o banco de dados:', err);
-    });
+  })
+  .catch((err) => {
+    console.error("Erro ao inicializar aplicação:", err);
+  });
