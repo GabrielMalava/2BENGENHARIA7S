@@ -10,14 +10,14 @@ const createTask = async (req, res) => {
     };
 
     if (req.body.listId) {
-      // Usando apenas findByPk para evitar problemas com eager loading
+      
       const list = await List.findByPk(req.body.listId);
 
       if (!list) {
         return res.status(404).json({ message: "Lista não encontrada" });
       }
 
-      // Verificar se a lista pertence a um quadro do usuário
+     
       const board = await Board.findByPk(list.boardId);
       if (!board || board.userId !== req.user.id) {
         return res
