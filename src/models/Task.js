@@ -1,25 +1,33 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const User = require("./User");
 
-const Task = sequelize.define('Task', {
+const Task = sequelize.define("Task", {
   title: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT
+    type: DataTypes.TEXT,
   },
   status: {
-    type: DataTypes.ENUM('pendente', 'em_andamento', 'concluida'),
-    defaultValue: 'pendente'
+    type: DataTypes.ENUM("pendente", "em_andamento", "concluida"),
+    defaultValue: "pendente",
   },
   prazo: {
-    type: DataTypes.DATE
+    type: DataTypes.DATE,
   },
   prioridade: {
-    type: DataTypes.ENUM('baixa', 'media', 'alta'),
-    defaultValue: 'media'
-  }
+    type: DataTypes.ENUM("baixa", "media", "alta"),
+    defaultValue: "media",
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'id'
+    }
+  },
 });
 
 module.exports = Task;
