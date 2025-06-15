@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const sequelize = require("./config/database");
@@ -24,17 +25,15 @@ app.use((err, req, res, next) => {
 });
 
 sequelize
-  .authenticate()
-  .then(() => {
+  .authenticate()  .then(() => {
     console.log("Conexão com o banco de dados SQLite realizada com sucesso!");
 
     return sequelize.sync({ force: false });
   })
   .then(() => {
-    console.log("Tabelas sincronizadas!");
-
-    app.listen(3000, () => {
-      console.log("Servidor rodando na porta 3000");
+    console.log("Tabelas sincronizadas!");    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
     });
   })
   .catch((err) => {
