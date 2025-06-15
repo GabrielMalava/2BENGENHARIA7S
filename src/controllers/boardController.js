@@ -40,7 +40,6 @@ const getBoards = async (req, res) => {
 
 const getBoardDetails = async (req, res) => {
   try {
-    // Buscar o quadro
     const board = await Board.findOne({
       where: {
         id: req.params.id,
@@ -52,7 +51,6 @@ const getBoardDetails = async (req, res) => {
       return res.status(404).json({ message: "Quadro não encontrado" });
     }
 
-    // Buscar as listas do quadro
     const lists = await List.findAll({
       where: {
         boardId: board.id,
