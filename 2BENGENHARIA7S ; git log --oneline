@@ -1,0 +1,21 @@
+[33m5e3498f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Adicionada proteção de autenticação nas rotas de tarefas
+[33m9a94505[m Implementada relação entre usuários e tarefas com proteção de acesso
+[33me82cbfa[m Criado middleware de autenticação JWT para proteção de rotas
+[33mcf0843d[m Adicionadas rotas de usuário e configuração no arquivo principal
+[33m0ef72fa[m Implementado controller de usuários com funcionalidades de registro, login e busca
+[33m4c5dfe7[m Criado modelo de Usuário com campos nome, email e senha
+[33mf42586f[m Adicionado campos status, prazo e prioridade ao modelo Task
+[33mab99210[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m mais edit
+[33m15d5a0e[m teste de rota post
+[33m7fd731c[m alteraçãop do task
+[33m3515de0[m comitted
+[33mae2ebe1[m alteração de task , controller e routes
+[33m0818a13[m rotas
+[33m746967c[m controller
+[33mcdb28b2[m Update Task.js
+[33meadc42c[m controller
+[33md9fe0ad[m task
+[33m5e3bc0e[m task.js
+[33mf9a8891[m moldel criada
+[33me264abf[m database config
+[33m972f748[m 1 dependencias
