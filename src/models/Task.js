@@ -8,6 +8,17 @@ const Task = sequelize.define('Task', {
   },
   description: {
     type: DataTypes.TEXT
+  },
+  status: {
+    type: DataTypes.ENUM('pendente', 'em_andamento', 'concluida'),
+    defaultValue: 'pendente'
+  },
+  prazo: {
+    type: DataTypes.DATE
+  },
+  prioridade: {
+    type: DataTypes.ENUM('baixa', 'media', 'alta'),
+    defaultValue: 'media'
   }
 });
 
