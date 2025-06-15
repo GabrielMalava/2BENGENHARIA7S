@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const sequelize = require("./config/database");
 const taskRoutes = require("./routes/taskRoutes");
 const userRoutes = require("./routes/userRoutes");
+const boardRoutes = require("./routes/boardRoutes");
+const seedRoutes = require("./routes/seedRoutes");
 
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(bodyParser.json());
 
 app.use("/api", taskRoutes);
 app.use("/api/auth", userRoutes);
+app.use("/api", boardRoutes);
+app.use("/api", seedRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
