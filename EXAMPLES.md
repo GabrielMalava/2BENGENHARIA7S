@@ -3,6 +3,7 @@
 ## Autenticação
 
 ### Registrar Usuário
+
 ```
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
@@ -15,6 +16,7 @@ Content-Type: application/json
 ```
 
 ### Login
+
 ```
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
@@ -28,6 +30,7 @@ Content-Type: application/json
 ## Tarefas
 
 ### Criar Tarefa (Requer token JWT)
+
 ```
 POST http://localhost:3000/api/tasks
 Content-Type: application/json
@@ -42,18 +45,21 @@ Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Listar Tarefas (Requer token JWT)
+
 ```
 GET http://localhost:3000/api/tasks
 Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Obter Tarefa por ID (Requer token JWT)
+
 ```
 GET http://localhost:3000/api/tasks/1
 Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Atualizar Tarefa (Requer token JWT)
+
 ```
 PUT http://localhost:3000/api/tasks/1
 Content-Type: application/json
@@ -66,6 +72,7 @@ Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Excluir Tarefa (Requer token JWT)
+
 ```
 DELETE http://localhost:3000/api/tasks/1
 Authorization: Bearer SEU_TOKEN_JWT
@@ -74,6 +81,7 @@ Authorization: Bearer SEU_TOKEN_JWT
 ## Quadros
 
 ### Criar Quadro (Requer token JWT)
+
 ```
 POST http://localhost:3000/api/boards
 Content-Type: application/json
@@ -86,12 +94,14 @@ Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Listar Quadros (Requer token JWT)
+
 ```
 GET http://localhost:3000/api/boards
 Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Obter Quadro por ID (Requer token JWT)
+
 ```
 GET http://localhost:3000/api/boards/1
 Authorization: Bearer SEU_TOKEN_JWT
@@ -100,6 +110,7 @@ Authorization: Bearer SEU_TOKEN_JWT
 ## Listas
 
 ### Criar Lista (Requer token JWT)
+
 ```
 POST http://localhost:3000/api/lists
 Content-Type: application/json
@@ -112,6 +123,7 @@ Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ### Mover Tarefa (Requer token JWT)
+
 ```
 POST http://localhost:3000/api/tasks/move
 Content-Type: application/json
@@ -127,6 +139,7 @@ Authorization: Bearer SEU_TOKEN_JWT
 ## Dados iniciais para teste
 
 ### Criar dados de teste
+
 ```
 POST http://localhost:3000/api/seed
 Content-Type: application/json

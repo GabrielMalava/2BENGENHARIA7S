@@ -1,4 +1,6 @@
 const Task = require("../models/Task");
+const List = require("../models/List");
+const Board = require("../models/Board");
 
 const createTask = async (req, res) => {
   try {
@@ -8,17 +10,16 @@ const createTask = async (req, res) => {
     };
 
     if (req.body.listId) {
-      const List = require("../models/List");
-      const Board = require("../models/Board");
-
-      const list = await List.findByPk(req.body.listId, {
-        include: {
-          model: Board,
-          where: { userId: req.user.id },
-        },
-      });
+      // Usando apenas findByPk para evitar problemas com eager loading
+      const list = await List.findByPk(req.body.listId);
 
       if (!list) {
+        return res.status(404).json({ message: "Lista não encontrada" });
+      }
+
+      // Verificar se a lista pertence a um quadro do usuário
+      const board = await Board.findByPk(list.boardId);
+      if (!board || board.userId !== req.user.id) {
         return res
           .status(403)
           .json({ message: "Acesso negado à lista solicitada" });
@@ -28,7 +29,10 @@ const createTask = async (req, res) => {
     const task = await Task.create(taskData);
     res.status(201).json(task);
   } catch (error) {
-    res.status(500).json({ message: "Erro ao criar a tarefa", error });
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Erro ao criar a tarefa", error: error.message });
   }
 };
 
