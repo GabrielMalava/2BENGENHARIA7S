@@ -12,7 +12,7 @@ Board.belongsTo(User, { foreignKey: "userId" });
 Board.hasMany(List, { foreignKey: "boardId", onDelete: "CASCADE" });
 List.belongsTo(Board, { foreignKey: "boardId" });
 
-List.hasMany(Task, { foreignKey: "listId", onDelete: "CASCADE" });
+List.hasMany(Task, { foreignKey: "listId", onDelete: "CASCADE", as: "Tasks" });
 Task.belongsTo(List, { foreignKey: "listId" });
 
 module.exports = {
