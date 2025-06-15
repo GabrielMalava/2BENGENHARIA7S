@@ -1,5 +1,6 @@
 const Board = require("../models/Board");
 const List = require("../models/List");
+const Task = require("../models/Task");
 
 const createBoard = async (req, res) => {
   try {
@@ -39,31 +40,46 @@ const getBoards = async (req, res) => {
 
 const getBoardDetails = async (req, res) => {
   try {
+    // Buscar o quadro
     const board = await Board.findOne({
       where: {
         id: req.params.id,
         userId: req.user.id,
       },
-      include: [
-        {
-          model: List,
-          include: "Tasks",
-        },
-      ],
     });
 
     if (!board) {
       return res.status(404).json({ message: "Quadro não encontrado" });
     }
 
-    res.status(200).json(board);
+    // Buscar as listas do quadro
+    const lists = await List.findAll({
+      where: {
+        boardId: board.id,
+      },
+    });
+
+    const listsWithTasks = await Promise.all(
+      lists.map(async (list) => {
+        const listObj = list.toJSON();
+        listObj.tasks = await Task.findAll({
+          where: { listId: list.id },
+          order: [["position", "ASC"]],
+        });
+        return listObj;
+      })
+    );
+
+    const result = board.toJSON();
+    result.lists = listsWithTasks;
+
+    res.status(200).json(result);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Erro ao buscar detalhes do quadro",
-        error: error.message,
-      });
+    console.error(error);
+    res.status(500).json({
+      message: "Erro ao buscar detalhes do quadro",
+      error: error.message,
+    });
   }
 };
 
